@@ -1,48 +1,59 @@
-var modaliOSPolyfill($modal) {
-	var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-	
-	if (!iOS) {
-		return;
-	}
-	
-	$('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
-    $('<style>.modal * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof exports !== 'undefined') {
+        module.exports = factory(require('jquery'));
+    } else {
+        factory(jQuery);
+    }
 
-    $modal.on('shown.bs.modal', function (e) {
-        var $modal = $(this);
-        var target = $modal.find('.modal-body')[0];
+})(function ($) {
+    $(function () {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-        var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                $modal.css('overflow-y', 'hidden');
-                setTimeout(function () {
-                    $modal.css('overflow-y', 'scroll');
-                    $modal.modal('handleUpdate');
-                }, 1);
-            });
-        });
-
-        observer.observe(target, {
-            attributes: true,
-            childList: true,
-            characterData: true
-        });
-
-        $modal[0].observer = observer;
-    });
-
-    $modal.on('hide.bs.modal', function (E) {
-        // Detatch observer
-        var observer = $(this)[0].observer;
-        if (observer) {
-            observer.disconnect();
+        if (!iOS) {
+            return;
         }
-    });
-};
 
-$(function () {
-    var $modal = $('.modal');
-	if ($modal.length) {
-		modaliOSPolyfill($modal);
-	}
+        $('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
+        $('<style>.modal * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
+
+        $(document).on('shown.bs.modal', function (e) {
+            var $modal = $(this);
+            var target = $modal.find('.modal-body')[0];
+
+            $('body').data('scroll-top', $(window).scrollTop()).css('top', '-' + $(window).scrollTop() + 'px').css('position', 'fixed');
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    $modal.css('overflow-y', 'hidden');
+                    setTimeout(function () {
+                        $modal.css('overflow-y', 'scroll');
+                        $modal.modal('handleUpdate');
+                    }, 1);
+                });
+            });
+
+            observer.observe(target, {
+                attributes: true,
+                childList: true,
+                characterData: true
+            });
+
+            $modal[0].observer = observer;
+        });
+
+        $(document).on('hide.bs.modal', function () {
+            $('body').css('position', '').css('top', '');
+            window.scrollTo(0, $('body').data('scroll-top'));
+            $('body').removeAttr('data-scroll-top');
+
+            // Detatch observer
+            var observer = $(this)[0].observer;
+            if (observer) {
+                observer.disconnect();
+            }
+        });
+    });
 });
