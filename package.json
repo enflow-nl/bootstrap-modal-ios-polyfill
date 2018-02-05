@@ -1,0 +1,19 @@
+{
+  "name": "bootstrap-modal-ios-polyfill",
+  "version": "1.0.0",
+  "description": "A (hacky) JavaScript polyfill to enable smooth scrolling on iOS",
+  "main": "bootstrap-modal-ios-polyfill.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enflow-nl/bootstrap-modal-ios-polyfill.git"
+  },
+  "author": "Enflow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enflow-nl/bootstrap-modal-ios-polyfill/issues"
+  },
+  "homepage": "https://github.com/enflow-nl/bootstrap-modal-ios-polyfill#readme"
+}
