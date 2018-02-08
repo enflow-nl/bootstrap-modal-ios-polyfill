@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-modal-ios-polyfill",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A (hacky) JavaScript polyfill to enable smooth scrolling on iOS",
   "main": "bootstrap-modal-ios-polyfill.js",
   "scripts": {
