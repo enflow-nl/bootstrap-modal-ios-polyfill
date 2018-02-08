@@ -18,7 +18,7 @@
 
         $('<style>.modal-open.modal-body-fixed { position: fixed; left: 0; right: 0; }</style>').appendTo(document.head);
         $('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
-        $('<style>.modal * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
+        $('<style>.modal-body > * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
 
         $(document).on('shown.bs.modal', function (e) {
             var $modal = $(this);
