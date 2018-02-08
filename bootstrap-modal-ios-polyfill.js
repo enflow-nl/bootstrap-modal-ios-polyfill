@@ -16,6 +16,7 @@
             return;
         }
 
+        $('<style>.modal-open.modal-body-fixed { position: fixed; left: 0; right: 0; }</style>').appendTo(document.head);
         $('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
         $('<style>.modal * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
 
@@ -23,7 +24,7 @@
             var $modal = $(this);
             var target = $modal.find('.modal-body')[0];
 
-            $('body').data('scroll-top', $(window).scrollTop()).css('top', '-' + $(window).scrollTop() + 'px').css('position', 'fixed');
+            $('body').data('scroll-top', $(window).scrollTop()).css('top', '-' + $(window).scrollTop() + 'px').addClass('modal-body-fixed');
 
             var observer = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
@@ -45,7 +46,7 @@
         });
 
         $(document).on('hide.bs.modal', function () {
-            $('body').css('position', '').css('top', '');
+            $('body').removeClass('modal-body-fixed').css('top', '');
             window.scrollTo(0, $('body').data('scroll-top'));
             $('body').removeAttr('data-scroll-top');
 
