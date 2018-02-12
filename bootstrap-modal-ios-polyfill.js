@@ -16,7 +16,7 @@
             return;
         }
 
-        $('<style>.modal-open.modal-body-fixed { position: fixed; left: 0; right: 0; }</style>').appendTo(document.head);
+        $('<style>.modal-body-fixed { position: fixed !important; left: 0 !important; right: 0 !important; }</style>').appendTo(document.head);
         $('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
         $('<style>.modal-body > * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
 
