@@ -12,6 +12,14 @@
     $(function () {
         var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+        // As this is a iOS polyfill, this doesn't belong here
+        // However, due to a Bootstrap bug, when opening a second model from another modal, the 'modal-open' class is removed.
+        // This ensures the body keeps this class, and scrolling is still possible
+        // @TODO: remove when fixed upstream
+        $(document).on('shown.bs.modal', function (e) {
+            $('body').addClass('modal-open');
+        });
+
         if (!iOS) {
             return;
         }
@@ -43,10 +51,6 @@
             });
 
             $modal[0].observer = observer;
-        });
-
-        $(document).on('shown.bs.modal', function (e) {
-            $('body').addClass('modal-open');
         });
 
         $(document).on('hide.bs.modal', function () {
