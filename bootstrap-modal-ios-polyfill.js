@@ -20,9 +20,9 @@
         $('<style>.modal { -webkit-overflow-scrolling: touch; }</style>').appendTo(document.head);
         $('<style>.modal-body > * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
 
-        $(document).on('shown.bs.modal', function (e) {
+        $(document).on('show.bs.modal', function (e) {
             var $modal = $(this);
-            var target = $modal.find('.modal-body')[0];
+            var target = $modal.find('.modal-content')[0];
 
             $('body').data('scroll-top', $(window).scrollTop()).css('top', '-' + $(window).scrollTop() + 'px').addClass('modal-body-fixed');
 
@@ -43,6 +43,10 @@
             });
 
             $modal[0].observer = observer;
+        });
+
+        $(document).on('shown.bs.modal', function (e) {
+            $('body').addClass('modal-open');
         });
 
         $(document).on('hide.bs.modal', function () {
