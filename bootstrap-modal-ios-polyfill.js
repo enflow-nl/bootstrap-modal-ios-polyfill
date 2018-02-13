@@ -29,7 +29,7 @@
         $('<style>.modal-body > * { -webkit-transform: translate3d(0, 0, 0); }</style>').appendTo(document.head);
 
         $(document).on('show.bs.modal', function (e) {
-            var $modal = $(this);
+            var $modal = $(e.target);
             var target = $modal.find('.modal-content')[0];
 
             $('body').data('scroll-top', $(window).scrollTop()).css('top', '-' + $(window).scrollTop() + 'px').addClass('modal-body-fixed');
@@ -47,7 +47,8 @@
             observer.observe(target, {
                 attributes: true,
                 childList: true,
-                characterData: true
+                characterData: true,
+                subtree: true
             });
 
             $modal[0].observer = observer;
